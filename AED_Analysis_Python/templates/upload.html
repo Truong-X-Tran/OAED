@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Upload</h2>
+<p>
+Step 1: Enter the Lowest Score between 0 to 9, for example, 4<br>
+Step 2: Enter the Highest Score between 0 to 9, for example, 9<br>
+Step 3: Choose an input screening file with scores<br>  
+Step 4: Only after Step 3 was completed, click "Upload file" to start the analysis<br>
+After the analysis, the Download option for downloading the output file will appear.<br>
+<br>
+</p>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div>
+    <label for="Lowest Score">Lowest Score: </label>
+    <input
+      id="lowest_score"
+      type="text"
+      name="lowest_score"
+	  value=4
+    />
+    <label for="Highest Score">Highest Score: </label>
+    <input
+      id="highest_score"
+      type="IntegerField"
+      name="highest_score"
+	  value=9
+    />
+  </div>
+  <div>
+    <input type="file" name="document" />
+    <button id ="upload_file" type="submit">Upload file</button>
+  </div>
+  <script>
+	var upload_file = document.getElementById("upload_file");
+	upload_file.addEventListener("click", function() {
+	document.getElementById("progress").innerHTML = "<b>One file uploaded and being processed, please wait...</b>";
+	document.getElementById("download").innerHTML = "";
+	});
+	</script>
+  <div id="progress"><strong>Ready for your action.</strong></div>
+  
+</form>
+{% if url %}
+  <!--<p>Download the output file: <a href="{{ url }}">Download</a></p>-->
+  <div id="download"><strong>Download the output file: </strong><a href="{{ url }}">Download</a></div>
+{% endif %} {% endblock %}
+

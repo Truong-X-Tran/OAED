@@ -1,0 +1,14 @@
+@startuml
+skinparam classFontName "Times"
+MainWindow -> MainWindow: Input Excel File Button
+MainWindow -> MainWindow: Output Excel File Button
+MainWindow -> MainWindow: Apply AED Button
+
+MainWindow -> Helper: h = Helper
+
+MainWindow -> Helper: h.readExcelFile(inputFile, lowestScore, highestScore) status_code
+
+MainWindow -> AED : myAED = AED()
+MainWindow -> AED : myAED.applyAED(h.rangeOfScreensTable) candidateCocktails
+
+MainWindow -> Helper: h.writeExcelFile(candidateCocktails, outputFileName)
